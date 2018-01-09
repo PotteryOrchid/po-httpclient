@@ -1,4 +1,4 @@
-package com.megvii.face.core.sdk;
+package com.megvii.face.core;
 
 import com.megvii.face.core.FaceCoreApplication;
 import org.junit.Before;
