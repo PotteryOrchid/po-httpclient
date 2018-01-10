@@ -11,20 +11,16 @@ package com.megvii.face.core;
 
 import java.io.Serializable;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *
  */
-@SpringBootApplication(scanBasePackages = "com.megvii.face.core")
+@Configuration
+@EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.megvii.face.core"})
-@EnableFeignClients
-@ServletComponentScan
-@EnableDiscoveryClient
 public class FaceCoreApplication implements Serializable {
 
   public static void main(String[] args) {

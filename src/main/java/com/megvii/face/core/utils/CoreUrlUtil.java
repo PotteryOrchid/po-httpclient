@@ -9,8 +9,8 @@ import com.megvii.face.core.config.CoreInfo;
 public class CoreUrlUtil {
 
   /**
-   * Get a real http or https core url Str. Create a new http or https core url Str according the original Str, and transfer the url
-   * parameter value into it. Example
+   * Get a real http or https core url Str. Create a new http or https core url Str according the
+   * original Str, and transfer the url parameter value into it. Example
    *
    * @param url String
    * @param urlParams UrlParam
@@ -24,7 +24,11 @@ public class CoreUrlUtil {
       url = url.replaceAll(urlParam.getName(), urlParam.getValue());
     }
 
-    stringBuffer.append(CoreInfo.getCorePrefixUrl());
+    if (CoreInfo.corePrefixUrl == null) {
+      CoreInfo.getCorePrefixUrl();
+    }
+
+    stringBuffer.append(CoreInfo.corePrefixUrl);
     stringBuffer.append(url);
 
     return stringBuffer.toString();
