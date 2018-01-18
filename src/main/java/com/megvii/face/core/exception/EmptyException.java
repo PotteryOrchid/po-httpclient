@@ -13,20 +13,18 @@ public class EmptyException extends Throwable {
   private String message;
 
   public EmptyException(String message) {
-    StringBuffer stringBuffer = new StringBuffer();
-    stringBuffer.append("The value of ");
-    stringBuffer.append(message);
-    stringBuffer.append(" can not be empty.");
-    this.setMessage(stringBuffer.toString());
+    String s = "The value of " +
+        message +
+        " can not be empty.";
+    this.setMessage(s);
   }
 
   public EmptyException(String code, String message) {
     this.setCode(code);
-    StringBuffer stringBuffer = new StringBuffer();
-    stringBuffer.append("The value of ");
-    stringBuffer.append(message);
-    stringBuffer.append(" can not be empty.");
-    this.setMessage(stringBuffer.toString());
+    String s = "The value of " +
+        message +
+        " can not be empty.";
+    this.setMessage(s);
   }
 
 }

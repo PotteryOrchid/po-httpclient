@@ -1,4 +1,4 @@
-package com.megvii.face.core.url;
+package com.megvii.face.core.uri;
 
 /**
  * Created by ZJ on 20/12/2017.
@@ -6,13 +6,13 @@ package com.megvii.face.core.url;
 public class Pubsub {
 
   /**
-   * Url parameter subscriptionName in regex format.
+   * Uri parameter subscriptionName in regex format.
    * 大括号需要转义。
    */
   public static final String PARAM_SNAME = "\\{subscriptionName\\}";
 
   /**
-   * Url parameter topicName in regex format.
+   * Uri parameter topicName in regex format.
    * 大括号需要转义。
    */
   public static final String PARAM_TNAME = "\\{topicName\\}";

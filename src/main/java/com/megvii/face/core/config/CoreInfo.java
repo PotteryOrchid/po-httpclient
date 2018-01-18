@@ -17,9 +17,9 @@ public class CoreInfo {
 
   private static String version;
 
-  public static String corePrefixUrl;
+  public static String corePrefixUri;
 
-  public static void getCorePrefixUrl() {
+  public static void getCorePrefixUri() {
 
     StringBuffer stringBuffer = new StringBuffer();
 
@@ -30,7 +30,7 @@ public class CoreInfo {
     stringBuffer.append(HttpInfo.PATH_SPLIT);
     stringBuffer.append(version);
 
-    corePrefixUrl = stringBuffer.toString();
+    corePrefixUri = stringBuffer.toString();
   }
 
   @Value("${sng.core.ip}")

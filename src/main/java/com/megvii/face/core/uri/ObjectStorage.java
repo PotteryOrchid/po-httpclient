@@ -1,4 +1,4 @@
-package com.megvii.face.core.url;
+package com.megvii.face.core.uri;
 
 /**
  * Created by ZJ on 04/01/2018.
@@ -6,13 +6,13 @@ package com.megvii.face.core.url;
 public class ObjectStorage {
 
   /**
-   * Url parameter bucketName in regex format.
+   * Uri parameter bucketName in regex format.
    * 大括号需要转义。
    */
   public static final String PARAM_BNAME = "\\{bucketName\\}";
 
   /**
-   * Url parameter objectName in regex format.
+   * Uri parameter objectName in regex format.
    * 大括号需要转义。
    */
   public static final String PARAM_ONAME = "\\{objectName\\}";

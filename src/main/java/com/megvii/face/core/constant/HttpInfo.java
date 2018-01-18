@@ -22,4 +22,39 @@ public class HttpInfo {
    */
   public static final String PATH_SPLIT = "/";
 
+  /**
+   * Http uri param ? Str.
+   */
+  public static final String PARAM_SPLIT = "?";
+
+  /**
+   * Http uri param & Str.
+   */
+  public static final String PARAM_AND = "&";
+
+  /**
+   * Http uri param = Str.
+   */
+  public static final String PARAM_EQUAL = "=";
+
+  /**
+   * Http uri param page token.
+   */
+  public static final String PAGE_TOKEN = "pageToken=";
+
+  /**
+   * Http uri param page offset.
+   */
+  public static final String PAGE_OFFSET = "pageOffset=";
+
+  /**
+   * Http uri param page size.
+   */
+  public static final String PAGE_SIZE = "pageSize=";
+
+  /**
+   * Http data encoding.
+   */
+  public static final String ENCODING = "UTF-8";
+
 }

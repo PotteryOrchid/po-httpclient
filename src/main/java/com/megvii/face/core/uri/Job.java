@@ -1,4 +1,4 @@
-package com.megvii.face.core.url;
+package com.megvii.face.core.uri;
 
 /**
  * Created by ZJ on 03/01/2018.
@@ -6,7 +6,7 @@ package com.megvii.face.core.url;
 public class Job {
 
   /**
-   * Url parameter jobId.
+   * Uri parameter jobId.
    */
   public static final String PARAM_ID = "\\{jobId\\}";
 

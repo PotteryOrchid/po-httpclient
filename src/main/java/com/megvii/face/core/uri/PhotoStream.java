@@ -1,4 +1,4 @@
-package com.megvii.face.core.url;
+package com.megvii.face.core.uri;
 
 /**
  * Created by ZJ on 20/12/2017.
@@ -6,7 +6,7 @@ package com.megvii.face.core.url;
 public class PhotoStream {
 
   /**
-   * Url parameter photoStreamId in regex format.
+   * Uri parameter photoStreamId in regex format.
    * 大括号需要转义。
    */
   public static final String PARAM_ID = "\\{photoStreamId\\}";
