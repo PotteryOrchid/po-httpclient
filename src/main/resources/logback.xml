@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <property resource="application.properties" />
+  <property resource="application.properties"/>
 
-  <springProperty scope="context" name="face-module-core" source="spring.application.name"/>
+  <springProperty scope="context" name="appName" source="face.module.core.appName"/>
 
-  <property name="LOG_FILE" value="/Users/zj/Documents/repo/git/face-module-core/${face.module.core.springAppName}"/>
+  <property name="LOG_FILE"
+    value="/Users/zj/Documents/repo/git/face-module-core/${face.module.core.logFileName}"/>
 
   <!-- Appender to log to file in a JSON format -->
   <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -22,7 +23,7 @@
           <pattern>
             {
             "level": "%level",
-            "app": "${springAppName:-}",
+            "app": "${appName:-}",
             "trace": "%X{X-B3-TraceId:-}",
             "span": "%X{X-B3-SpanId:-}",
             "exportable": "%X{X-Span-Export:-}",
@@ -36,4 +37,7 @@
       </providers>
     </encoder>
   </appender>
+  <root level="${logging.level.root}">
+    <appender-ref ref="logstash"/>
+  </root>
 </configuration>

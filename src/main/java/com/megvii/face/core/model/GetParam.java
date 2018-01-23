@@ -1,5 +1,6 @@
 package com.megvii.face.core.model;
 
+import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class GetParam {
+public class GetParam implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
 }

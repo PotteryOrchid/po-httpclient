@@ -2,6 +2,7 @@ package com.megvii.face.core.model;
 
 import com.megvii.face.core.constant.HttpInfo;
 import com.megvii.face.core.utils.StrUtil;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import org.springframework.util.StringUtils;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageParam {
+public class PageParam implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   public String pageToken;
 

@@ -8,18 +8,23 @@ package com.megvii.face.core.constant;
 public class MsgInfo {
 
   /**
-   * Http msg head.
+   * Http server error msg head.
    */
   public static final String SERVER_ERROR = "Face service core module server error:";
 
   /**
-   * Http uri head.
+   * Http uri parameter error head.
    */
   public static final String URI_ERROR = "Face service core module uri parameter error:";
 
   /**
-   * Http msg head.
+   * Http msg enter.
    */
   public static final String MSG_ENTER = "\n";
+
+  /**
+   * Http msg space.
+   */
+  public static final String MSG_SPACE = " ";
 
 }
