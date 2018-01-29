@@ -1,8 +1,10 @@
 package com.megvii.face.core.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.megvii.face.core.model.CoreRes;
 import com.megvii.face.core.model.PageParam;
 import com.megvii.face.core.model.SuccBody;
+import com.megvii.face.core.model.UriParam;
 import com.megvii.face.core.service.PhotoAlbumCoreService;
 import com.megvii.face.core.utils.CoreUriUtil;
 import com.megvii.face.core.utils.HttpUtil;
@@ -20,12 +22,14 @@ public class PhotoAlbumCoreServiceImpl implements PhotoAlbumCoreService {
   public CoreRes<PhotoAlbums> getPhotoAlbumList(String pageToken, Integer pageOffset,
       Integer pageSize) {
 
+    // Request parameters.
     PageParam pageParam = new PageParam(pageToken, pageOffset, pageSize);
+    // Request uri path.
     String uri = CoreUriUtil
         .appendPageAndGetParam(
             CoreUriUtil.getCoreUri(com.megvii.face.core.uri.PhotoAlbum.GET_ALBUMS), pageParam,
             null);
-
+    // Http request util.
     HttpUtil httpUtil = new HttpUtil();
 
     return httpUtil.doGet(uri, PhotoAlbums.class);
@@ -33,22 +37,56 @@ public class PhotoAlbumCoreServiceImpl implements PhotoAlbumCoreService {
 
   @Override
   public CoreRes<PhotoAlbum> getPhotoAlbum(String photoAlbumId) {
-    return null;
+
+    // Request parameters.
+    UriParam uriParam = new UriParam(com.megvii.face.core.uri.PhotoAlbum.PARAM_ID, photoAlbumId);
+    // Request uri path.
+    String uri = CoreUriUtil
+        .getCoreUri(com.megvii.face.core.uri.PhotoAlbum.GET_ALBUMS_ID, uriParam);
+    // Http request util.
+    HttpUtil httpUtil = new HttpUtil();
+
+    return httpUtil.doGet(uri, PhotoAlbum.class);
   }
 
   @Override
   public CoreRes<PhotoAlbum> addPhotoAlbum(PhotoAlbumAdd photoAlbumAdd) {
-    return null;
+
+    // Request uri path.
+    String uri = CoreUriUtil
+        .getCoreUri(com.megvii.face.core.uri.PhotoAlbum.POST_ALBUMS);
+    // Http request util.
+    HttpUtil httpUtil = new HttpUtil();
+
+    return httpUtil.doPost(uri, JSON.toJSONString(photoAlbumAdd), PhotoAlbum.class);
   }
 
   @Override
   public CoreRes<SuccBody> delPhotoAlbum(String photoAlbumId) {
-    return null;
+
+    // Request parameters.
+    UriParam uriParam = new UriParam(com.megvii.face.core.uri.PhotoAlbum.PARAM_ID, photoAlbumId);
+    // Request uri path.
+    String uri = CoreUriUtil
+        .getCoreUri(com.megvii.face.core.uri.PhotoAlbum.DELETE_ALBUMS_ID, uriParam);
+    // Http request util.
+    HttpUtil httpUtil = new HttpUtil();
+
+    return httpUtil.doDelete(uri);
   }
 
   @Override
   public CoreRes<PhotoAlbum> updatePhotoAlbum(String photoAlbumId,
       PhotoAlbumUpdate photoAlbumUpdate) {
-    return null;
+
+    // Request parameters.
+    UriParam uriParam = new UriParam(com.megvii.face.core.uri.PhotoAlbum.PARAM_ID, photoAlbumId);
+    // Request uri path.
+    String uri = CoreUriUtil
+        .getCoreUri(com.megvii.face.core.uri.PhotoAlbum.PATCH_ALBUMS_ID, uriParam);
+    // Http request util.
+    HttpUtil httpUtil = new HttpUtil();
+
+    return httpUtil.doPatch(uri, JSON.toJSONString(photoAlbumUpdate), PhotoAlbum.class);
   }
 }

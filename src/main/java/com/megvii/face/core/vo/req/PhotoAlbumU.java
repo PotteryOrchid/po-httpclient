@@ -6,20 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by ZJ on 23/01/2018.
+ * Created by ZJ on 24/01/2018.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhotoAlbumAdd {
+public class PhotoAlbumU {
 
   @JSONField
   public String name;
 
   @JSONField
   public String type;
-
-  @JSONField
-  public Integer estimatedSize;
 
 }

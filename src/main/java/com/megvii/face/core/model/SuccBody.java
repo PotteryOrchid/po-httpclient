@@ -1,21 +1,21 @@
 package com.megvii.face.core.model;
 
-import lombok.AllArgsConstructor;
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Created by ZJ on 23/01/2018.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class SuccBody {
 
+  @JSONField
   private String code;
 
+  @JSONField
   private String message;
 
+  @JSONField
   private String requestId;
 
 }

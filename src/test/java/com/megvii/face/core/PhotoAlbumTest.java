@@ -1,10 +1,16 @@
 package com.megvii.face.core;
 
 import com.megvii.face.core.model.CoreRes;
+import com.megvii.face.core.model.SuccBody;
 import com.megvii.face.core.service.PhotoAlbumCoreService;
 import com.megvii.face.core.service.impl.PhotoAlbumCoreServiceImpl;
 
+import com.megvii.face.core.vo.req.PhotoAlbumAdd;
+import com.megvii.face.core.vo.req.PhotoAlbumU;
+import com.megvii.face.core.vo.req.PhotoAlbumUpdate;
+import com.megvii.face.core.vo.resp.PhotoAlbum;
 import com.megvii.face.core.vo.resp.PhotoAlbums;
+import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +35,43 @@ public class PhotoAlbumTest {
   @Test
   public void getPhotoAlbumList() {
     CoreRes<PhotoAlbums> coreRes = photoAlbumCoreService.getPhotoAlbumList(null, 0, 3);
+    System.out.println(coreRes.getBody().toString());
+  }
+
+  @Test
+  public void getPhotoAlbum() {
+    CoreRes<PhotoAlbum> coreRes = photoAlbumCoreService
+        .getPhotoAlbum("8242c163-d892-3769-8cf5-95ce5c21069b");
+    System.out.println(coreRes.getBody().toString());
+  }
+
+  @Test
+  public void addPhotoAlbum() {
+    PhotoAlbumAdd photoAlbumAdd = new PhotoAlbumAdd("test001", "MONITtOR", 0);
+    CoreRes<PhotoAlbum> coreRes = photoAlbumCoreService.addPhotoAlbum(photoAlbumAdd);
+    if (coreRes.getStatus() != HttpStatus.SC_OK) {
+      System.out.println(coreRes.getFailedBody().toString());
+    } else {
+      System.out.println(coreRes.getBody().toString());
+    }
+  }
+
+  @Test
+  public void delPhotoAlbum() {
+    CoreRes<SuccBody> coreRes = photoAlbumCoreService
+        .delPhotoAlbum("bd2df72d-5744-b0c9-3751-4c68eae45232");
+    if (coreRes.getStatus() != HttpStatus.SC_OK) {
+      System.out.println(coreRes.getFailedBody().toString());
+    } else {
+      System.out.println(coreRes.getBody());
+    }
+  }
+
+  @Test
+  public void updatePhotoAlbum() {
+    PhotoAlbumUpdate photoAlbumUpdate = new PhotoAlbumUpdate(new PhotoAlbumU("test2", "MONITOR"));
+    CoreRes<PhotoAlbum> coreRes = photoAlbumCoreService
+        .updatePhotoAlbum("8242c163-d892-3769-8cf5-95ce5c21069b", photoAlbumUpdate);
     System.out.println(coreRes.getBody().toString());
   }
 

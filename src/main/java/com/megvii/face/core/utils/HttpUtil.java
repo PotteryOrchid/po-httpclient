@@ -102,14 +102,14 @@ public class HttpUtil {
     }
   }
 
-  public CoreRes doDelete(String uri, Class clazz) {
+  public CoreRes doDelete(String uri) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
       HttpDelete httpDelete = new HttpDelete(uri);
       this.setHttpRequest(httpDelete);
 
       // Create a custom response handler
-      ResponseHandler<CoreRes> responseHandler = getCoreResResponseHandler(clazz);
+      ResponseHandler<CoreRes> responseHandler = getCoreResResponseHandler();
       return httpclient.execute(httpDelete, responseHandler);
     } catch (IOException ioe) {
       logger.error(StrUtil
@@ -145,12 +145,37 @@ public class HttpUtil {
 
         CoreRes coreRes = new CoreRes();
         coreRes.setStatus(status);
-        coreRes.setStatus(status);
 
         if (HttpStatus.SC_OK == status) {
           coreRes.setBody(
               JSON.parseObject(entity != null ? EntityUtils.toString(entity) : null, clazz));
         } else {
+          coreRes.setFailedBody(
+              JSON.parseObject(entity != null ? EntityUtils.toString(entity) : null,
+                  FailedBody.class));
+        }
+        return coreRes;
+      }
+    };
+  }
+
+  /**
+   * For Http DELETE Request.
+   */
+  private ResponseHandler<CoreRes> getCoreResResponseHandler() {
+    return new ResponseHandler<CoreRes>() {
+      @Override
+      public CoreRes handleResponse(
+          final HttpResponse response) throws IOException {
+
+        int status = response.getStatusLine().getStatusCode();
+        HttpEntity entity = response.getEntity();
+
+        CoreRes coreRes = new CoreRes();
+        coreRes.setStatus(status);
+        coreRes.setBody(null);
+
+        if (HttpStatus.SC_OK != status) {
           coreRes.setFailedBody(
               JSON.parseObject(entity != null ? EntityUtils.toString(entity) : null,
                   FailedBody.class));

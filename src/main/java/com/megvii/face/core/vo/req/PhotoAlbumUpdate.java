@@ -14,12 +14,6 @@ import lombok.NoArgsConstructor;
 public class PhotoAlbumUpdate {
 
   @JSONField
-  public String name;
-
-  @JSONField
-  public String type;
-
-  @JSONField
-  public String estimatedSize;
+  public PhotoAlbumU photoAlbum;
 
 }

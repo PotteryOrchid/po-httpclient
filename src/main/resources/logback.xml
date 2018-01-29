@@ -4,8 +4,7 @@
 
   <springProperty scope="context" name="appName" source="face.module.core.appName"/>
 
-  <property name="LOG_FILE"
-    value="/Users/zj/Documents/repo/git/face-module-core/${face.module.core.logFileName}"/>
+  <property name="LOG_FILE" value="${face.module.core.logFilePath}"/>
 
   <!-- Appender to log to file in a JSON format -->
   <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -37,7 +36,7 @@
       </providers>
     </encoder>
   </appender>
-  <root level="${logging.level.root}">
+  <root level="${face.module.core.logging.level.root}">
     <appender-ref ref="logstash"/>
   </root>
 </configuration>

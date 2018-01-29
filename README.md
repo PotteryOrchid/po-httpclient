@@ -1,1 +1,1 @@
-Core module init.
+#Core接口组件
