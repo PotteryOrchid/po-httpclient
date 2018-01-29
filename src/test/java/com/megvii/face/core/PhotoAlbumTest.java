@@ -47,7 +47,7 @@ public class PhotoAlbumTest {
 
   @Test
   public void addPhotoAlbum() {
-    PhotoAlbumAdd photoAlbumAdd = new PhotoAlbumAdd("test001", "MONITtOR", 0);
+    PhotoAlbumAdd photoAlbumAdd = new PhotoAlbumAdd("test001", "MONITOR", 0);
     CoreRes<PhotoAlbum> coreRes = photoAlbumCoreService.addPhotoAlbum(photoAlbumAdd);
     if (coreRes.getStatus() != HttpStatus.SC_OK) {
       System.out.println(coreRes.getFailedBody().toString());
@@ -59,7 +59,7 @@ public class PhotoAlbumTest {
   @Test
   public void delPhotoAlbum() {
     CoreRes<SuccBody> coreRes = photoAlbumCoreService
-        .delPhotoAlbum("bd2df72d-5744-b0c9-3751-4c68eae45232");
+        .delPhotoAlbum("d8bec7ea-2330-3e8a-c838-7cd0431a7955");
     if (coreRes.getStatus() != HttpStatus.SC_OK) {
       System.out.println(coreRes.getFailedBody().toString());
     } else {
