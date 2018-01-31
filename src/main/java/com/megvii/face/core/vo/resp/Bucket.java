@@ -13,6 +13,6 @@ public class Bucket {
   public String name;
 
   @JSONField
-  public String replica;
+  public Integer replica;
 
 }

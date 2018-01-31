@@ -17,6 +17,6 @@ public class BucketAdd {
   public String name;
 
   @JSONField
-  public String replica;
+  public Integer replica = 1;
 
 }

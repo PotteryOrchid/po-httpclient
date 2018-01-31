@@ -7,11 +7,13 @@ import com.megvii.face.core.model.UriParam;
 import com.megvii.face.core.service.ObjectStorageService;
 import com.megvii.face.core.uri.ObjectStorage;
 import com.megvii.face.core.utils.CoreUriUtil;
+import com.megvii.face.core.utils.HttpFileUtil;
 import com.megvii.face.core.utils.HttpUtil;
 import com.megvii.face.core.vo.req.BucketAdd;
 import com.megvii.face.core.vo.resp.Bucket;
 import com.megvii.face.core.vo.resp.Buckets;
 import com.megvii.face.core.vo.resp.StorageObject;
+import java.io.File;
 
 /**
  * Created by ZJ on 29/01/2018.
@@ -30,7 +32,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
   }
 
   @Override
-  public CoreRes<SuccBody> addBucket(BucketAdd bucketAdd) {
+  public CoreRes<Bucket> addBucket(BucketAdd bucketAdd) {
 
     // Request uri path.
     String uri = CoreUriUtil.getCoreUri(ObjectStorage.POST_OBJECTSTORAGE);
@@ -46,7 +48,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
     // Request parameters.
     UriParam uriParam = new UriParam(ObjectStorage.PARAM_BNAME, bucketName);
     // Request uri path.
-    String uri = CoreUriUtil.getCoreUri(ObjectStorage.DELETE_OBJECTSTORAGE_BNAME);
+    String uri = CoreUriUtil.getCoreUri(ObjectStorage.DELETE_OBJECTSTORAGE_BNAME, uriParam);
     // Http request util.
     HttpUtil httpUtil = new HttpUtil();
 
@@ -54,16 +56,16 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
   }
 
   @Override
-  public CoreRes<StorageObject> addObject(String bucketName, String storageObject) {
+  public CoreRes<StorageObject> addObject(String bucketName, File file) {
 
     // Request parameters.
     UriParam uriParam = new UriParam(ObjectStorage.PARAM_BNAME, bucketName);
     // Request uri path.
     String uri = CoreUriUtil.getCoreUri(ObjectStorage.POST_OBJECTSTORAGE_BNAME, uriParam);
     // Http request util.
-    HttpUtil httpUtil = new HttpUtil();
+    HttpFileUtil httpFileUtil = new HttpFileUtil();
 
-    return httpUtil.doPost(uri, storageObject, StorageObject.class);
+    return httpFileUtil.doPost(uri, file, StorageObject.class);
   }
 
   @Override
@@ -86,13 +88,13 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
 
     // Request parameters.
     UriParam uriBucketName = new UriParam(ObjectStorage.PARAM_BNAME, bucketName);
-    UriParam uriObjectName = new UriParam(ObjectStorage.PARAM_BNAME, objectName);
+    UriParam uriObjectName = new UriParam(ObjectStorage.PARAM_ONAME, objectName);
     // Request uri path.
     String uri = CoreUriUtil
         .getCoreUri(ObjectStorage.GET_OBJECTSTORAGE_BNAME_ONAME, uriBucketName, uriObjectName);
     // Http request util.
-    HttpUtil httpUtil = new HttpUtil();
+    HttpFileUtil httpFileUtil = new HttpFileUtil();
 
-    return httpUtil.doGet(uri, Buckets.class);
+    return httpFileUtil.doGet(uri);
   }
 }

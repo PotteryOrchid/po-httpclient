@@ -1,18 +1,16 @@
 package com.megvii.face.core.utils;
 
-import com.megvii.face.core.constant.HttpInfo;
 import com.megvii.face.core.constant.MsgInfo;
 import com.megvii.face.core.filter.XRequestIdFilter;
 import com.megvii.face.core.model.CoreRes;
+import java.io.File;
 import java.io.IOException;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
@@ -22,11 +20,11 @@ import org.slf4j.MDC;
 /**
  * Created by ZJ on 11/01/2018.
  */
-public class HttpUtil {
+public class HttpFileUtil {
 
-  Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+  Logger logger = LoggerFactory.getLogger(HttpFileUtil.class);
 
-  public CoreRes doGet(String uri, Class clazz) {
+  public CoreRes doGet(String uri) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
       HttpGet httpget = new HttpGet(uri);
@@ -34,7 +32,7 @@ public class HttpUtil {
 
       // Create a custom response handler
       ResponseHandler<CoreRes> responseHandler = new HttpResponseHandler()
-          .getResponseHandlerWithBody(clazz);
+          .getResponseHandlerWithBody();
       return httpclient.execute(httpget, responseHandler);
     } catch (IOException ioe) {
       logger.error(StrUtil
@@ -50,12 +48,12 @@ public class HttpUtil {
     }
   }
 
-  public CoreRes doPost(String uri, String body, Class clazz) {
+  public CoreRes doPost(String uri, File file, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
       HttpPost httpPost = new HttpPost(uri);
       this.setHttpRequest(httpPost);
-      httpPost.setEntity(new StringEntity(body, HttpInfo.ENCODING));
+      httpPost.setEntity(new FileEntity(file));
 
       // Create a custom response handler
       ResponseHandler<CoreRes> responseHandler = new HttpResponseHandler()
@@ -64,56 +62,7 @@ public class HttpUtil {
     } catch (IOException ioe) {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpPost.METHOD_NAME, MsgInfo.MSG_SPACE,
-              uri, MsgInfo.MSG_ENTER, body, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
-    } finally {
-      try {
-        httpclient.close();
-      } catch (IOException ioe) {
-        ioe.printStackTrace();
-      }
-    }
-  }
-
-  public CoreRes doPatch(String uri, String body, Class clazz) {
-    CloseableHttpClient httpclient = HttpClients.createDefault();
-    try {
-      HttpPatch httpPatch = new HttpPatch(uri);
-      this.setHttpRequest(httpPatch);
-      httpPatch.setEntity(new StringEntity(body, HttpInfo.ENCODING));
-
-      // Create a custom response handler
-      ResponseHandler<CoreRes> responseHandler = new HttpResponseHandler()
-          .getResponseHandlerWithBody(clazz);
-      return httpclient.execute(httpPatch, responseHandler);
-    } catch (IOException ioe) {
-      logger.error(StrUtil
-          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpPatch.METHOD_NAME, MsgInfo.MSG_SPACE,
-              uri, MsgInfo.MSG_ENTER, body, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
-    } finally {
-      try {
-        httpclient.close();
-      } catch (IOException ioe) {
-        ioe.printStackTrace();
-      }
-    }
-  }
-
-  public CoreRes doDelete(String uri) {
-    CloseableHttpClient httpclient = HttpClients.createDefault();
-    try {
-      HttpDelete httpDelete = new HttpDelete(uri);
-      this.setHttpRequest(httpDelete);
-
-      // Create a custom response handler
-      ResponseHandler<CoreRes> responseHandler = new HttpResponseHandler()
-          .getResponseHandlerOutBody();
-      return httpclient.execute(httpDelete, responseHandler);
-    } catch (IOException ioe) {
-      logger.error(StrUtil
-          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpDelete.METHOD_NAME,
-              MsgInfo.MSG_SPACE, uri, MsgInfo.MSG_ENTER, ioe.getMessage()));
+              uri, MsgInfo.MSG_ENTER, file.getPath(), MsgInfo.MSG_ENTER, ioe.getMessage()));
       return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
     } finally {
       try {
