@@ -1,12 +1,14 @@
 package com.megvii.face.core.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * Created by ZJ on 22/01/2018.
  */
 @Data
+@AllArgsConstructor
 public class FailedBody {
 
   @JSONField

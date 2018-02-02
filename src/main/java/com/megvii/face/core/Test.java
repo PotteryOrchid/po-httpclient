@@ -2,6 +2,7 @@ package com.megvii.face.core;
 
 import com.megvii.face.core.constant.MsgInfo;
 import com.megvii.face.core.utils.StrUtil;
+import java.io.File;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import org.apache.http.client.methods.HttpGet;
@@ -44,9 +45,8 @@ public class Test {
 //  }
 
   public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException {
-
-    System.out.println(StrUtil
-        .getStr(HttpGet.METHOD_NAME, MsgInfo.MSG_SPACE, "http:././", MsgInfo.MSG_ENTER, "hell"));
+    File file = new File("/Users/zj/Documents/repo/git/face-module-core/800.mp4");
+    System.out.println(file);
 
   }
 

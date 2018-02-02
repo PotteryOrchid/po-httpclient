@@ -3,6 +3,7 @@ package com.megvii.face.core.utils;
 import com.megvii.face.core.constant.MsgInfo;
 import com.megvii.face.core.filter.XRequestIdFilter;
 import com.megvii.face.core.model.CoreRes;
+import com.megvii.face.core.model.FailedBody;
 import java.io.File;
 import java.io.IOException;
 import org.apache.http.HttpStatus;
@@ -38,7 +39,9 @@ public class HttpFileUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpGet.METHOD_NAME, MsgInfo.MSG_SPACE,
               uri, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, new FailedBody(null, StrUtil
+          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpGet.METHOD_NAME,
+              MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();
@@ -63,7 +66,10 @@ public class HttpFileUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpPost.METHOD_NAME, MsgInfo.MSG_SPACE,
               uri, MsgInfo.MSG_ENTER, file.getPath(), MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null,
+          new FailedBody(null, StrUtil
+              .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpPost.METHOD_NAME,
+                  MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();

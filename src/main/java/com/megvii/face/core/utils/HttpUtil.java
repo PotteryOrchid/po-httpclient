@@ -4,6 +4,7 @@ import com.megvii.face.core.constant.HttpInfo;
 import com.megvii.face.core.constant.MsgInfo;
 import com.megvii.face.core.filter.XRequestIdFilter;
 import com.megvii.face.core.model.CoreRes;
+import com.megvii.face.core.model.FailedBody;
 import java.io.IOException;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ResponseHandler;
@@ -40,7 +41,9 @@ public class HttpUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpGet.METHOD_NAME, MsgInfo.MSG_SPACE,
               uri, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, new FailedBody(null, StrUtil
+          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpGet.METHOD_NAME,
+              MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();
@@ -65,7 +68,9 @@ public class HttpUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpPost.METHOD_NAME, MsgInfo.MSG_SPACE,
               uri, MsgInfo.MSG_ENTER, body, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, new FailedBody(null, StrUtil
+          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpPost.METHOD_NAME,
+              MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();
@@ -90,7 +95,9 @@ public class HttpUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpPatch.METHOD_NAME, MsgInfo.MSG_SPACE,
               uri, MsgInfo.MSG_ENTER, body, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, new FailedBody(null, StrUtil
+          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpPatch.METHOD_NAME,
+              MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();
@@ -114,7 +121,9 @@ public class HttpUtil {
       logger.error(StrUtil
           .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_ENTER, HttpDelete.METHOD_NAME,
               MsgInfo.MSG_SPACE, uri, MsgInfo.MSG_ENTER, ioe.getMessage()));
-      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, null);
+      return new CoreRes(HttpStatus.SC_INTERNAL_SERVER_ERROR, null, new FailedBody(null, StrUtil
+          .getStr(MsgInfo.SERVER_ERROR, MsgInfo.MSG_SPACE, HttpDelete.METHOD_NAME,
+              MsgInfo.MSG_SPACE, uri), null));
     } finally {
       try {
         httpclient.close();

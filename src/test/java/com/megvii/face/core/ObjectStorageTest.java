@@ -68,19 +68,22 @@ public class ObjectStorageTest {
 
   @Test
   public void addStorageObject() {
-    File file = new File("/Users/zj/Documents/repo/git/face-module-core/1705.jpg");
+    File file = new File("/Users/zj/Desktop/y2018.mp4");
     CoreRes<StorageObject> coreRes = objectStorageService.addObject("test2", file);
 
+    System.out.println("1:" + coreRes);
+    System.out.println(coreRes.toString());
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
-      System.out.println(coreRes.getBody());
+      System.out.println("ok:" + coreRes.getBody());
     } else {
-      System.out.println(coreRes.getFailedBody());
+      System.out.println("fail:" + coreRes.getFailedBody());
     }
   }
 
   @Test
   public void getStorageObject() {
-    CoreRes<SuccBody> coreRes = objectStorageService.getObject("test2", "weed---5044-_0157d22e4151e06d");
+    CoreRes<SuccBody> coreRes = objectStorageService
+        .getObject("test2", "weed---5044-_0157d22e4151e06d");
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
       System.out.println(coreRes.getBody());
     } else {
@@ -90,7 +93,8 @@ public class ObjectStorageTest {
 
   @Test
   public void delStorageObject() {
-    CoreRes<SuccBody> coreRes = objectStorageService.delObject("test2", "weed---5044-_0157d22e4151e06d");
+    CoreRes<SuccBody> coreRes = objectStorageService
+        .delObject("test2", "weed---5044-_0157d22e4151e06d");
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
       System.out.println(coreRes.getBody());
     } else {
