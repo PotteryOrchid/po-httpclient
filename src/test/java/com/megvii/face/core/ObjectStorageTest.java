@@ -68,7 +68,7 @@ public class ObjectStorageTest {
 
   @Test
   public void addStorageObject() {
-    File file = new File("/Users/zj/Desktop/y2018.mp4");
+    File file = new File("/Users/zj/Desktop/v/90.avi");
     CoreRes<StorageObject> coreRes = objectStorageService.addObject("test2", file);
 
     System.out.println("1:" + coreRes);
