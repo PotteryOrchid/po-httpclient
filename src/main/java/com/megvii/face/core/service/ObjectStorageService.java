@@ -21,6 +21,8 @@ public interface ObjectStorageService {
 
   CoreRes<StorageObject> addObject(String bucketName, File file);
 
+  CoreRes<StorageObject> addObject(String bucketName, String objectStr);
+
   CoreRes<SuccBody> delObject(String bucketName, String objectName);
 
   CoreRes<SuccBody> getObject(String bucketName, String objectName);

@@ -69,6 +69,18 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
   }
 
   @Override
+  public CoreRes<StorageObject> addObject(String bucketName, String objectStr) {
+    // Request parameters.
+    UriParam uriParam = new UriParam(ObjectStorage.PARAM_BNAME, bucketName);
+    // Request uri path.
+    String uri = CoreUriUtil.getCoreUri(ObjectStorage.POST_OBJECTSTORAGE_BNAME, uriParam);
+    // Http request util.
+    HttpFileUtil httpFileUtil = new HttpFileUtil();
+
+    return httpFileUtil.doPost(uri, objectStr, StorageObject.class);
+  }
+
+  @Override
   public CoreRes<SuccBody> delObject(String bucketName, String objectName) {
 
     // Request parameters.
