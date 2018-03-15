@@ -21,12 +21,19 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
+ * Universal HTTP request methods.
  * Created by ZJ on 11/01/2018.
  */
 public class HttpUtil {
 
   Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
+  /**
+   *
+   * @param uri HTTP request uri.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doGet(String uri, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
@@ -53,6 +60,13 @@ public class HttpUtil {
     }
   }
 
+  /**
+   *
+   * @param uri HTTP request uri.
+   * @param body HTTP request body.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doPost(String uri, String body, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
@@ -80,6 +94,13 @@ public class HttpUtil {
     }
   }
 
+  /**
+   *
+   * @param uri HTTP request uri.
+   * @param body HTTP request body.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doPatch(String uri, String body, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
@@ -107,6 +128,11 @@ public class HttpUtil {
     }
   }
 
+  /**
+   *
+   * @param uri HTTP request uri.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doDelete(String uri) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
