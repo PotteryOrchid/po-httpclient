@@ -10,7 +10,16 @@ import com.megvii.face.core.vo.resp.Bucket;
 import com.megvii.face.core.vo.resp.Buckets;
 import com.megvii.face.core.vo.resp.StorageObject;
 import java.io.File;
+import java.io.IOException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +43,7 @@ public class ObjectStorageTest {
 
   @Test
   public void addBucket() {
-    BucketAdd bucketAdd = new BucketAdd("test2", DefaultInfo.BUCKET_REPLICA);
+    BucketAdd bucketAdd = new BucketAdd("test", DefaultInfo.BUCKET_REPLICA);
     CoreRes<Bucket> coreRes = objectStorageService.addBucket(bucketAdd);
 
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
@@ -67,9 +76,40 @@ public class ObjectStorageTest {
   }
 
   @Test
-  public void addStorageObject() {
-    File file = new File("/Users/zj/Desktop/ok/1400.mp4");
-    CoreRes<StorageObject> coreRes = objectStorageService.addObject("test2", file);
+  public void addStorageObject() throws IOException {
+
+    byte[] bytes =null;
+
+    CloseableHttpClient httpclient = HttpClients.createDefault();
+    try {
+      HttpGet httpget = new HttpGet("http://10.201.102.122:8080/v4/photos/a3-AAABYgUHWP0CmGB7AAAAAg==/data");
+
+      System.out.println("Executing request " + httpget.getRequestLine());
+
+      // Create a custom response handler
+      ResponseHandler<byte[]> responseHandler = new ResponseHandler<byte[]>() {
+
+        @Override
+        public byte[] handleResponse(
+            final HttpResponse response) throws ClientProtocolException, IOException {
+          int status = response.getStatusLine().getStatusCode();
+          if (status >= 200 && status < 300) {
+            HttpEntity entity = response.getEntity();
+            return entity != null ? EntityUtils.toByteArray(entity) : null;
+          } else {
+            throw new ClientProtocolException("Unexpected response status: " + status);
+          }
+        }
+
+      };
+      bytes = httpclient.execute(httpget, responseHandler);
+    } finally {
+      httpclient.close();
+    }
+
+
+
+    CoreRes<StorageObject> coreRes = objectStorageService.addObject("test", bytes);
 
     System.out.println("1:" + coreRes);
     System.out.println(coreRes.toString());
@@ -78,12 +118,23 @@ public class ObjectStorageTest {
     } else {
       System.out.println("fail:" + coreRes.getFailedBody());
     }
+
+//    File file = new File("/Users/zj/Desktop/ok/1400.mp4");
+//    CoreRes<StorageObject> coreRes = objectStorageService.addObject("test", file);
+//
+//    System.out.println("1:" + coreRes);
+//    System.out.println(coreRes.toString());
+//    if (coreRes.getStatus() == HttpStatus.SC_OK) {
+//      System.out.println("ok:" + coreRes.getBody());
+//    } else {
+//      System.out.println("fail:" + coreRes.getFailedBody());
+//    }
   }
 
   @Test
   public void getStorageObject() {
     CoreRes<SuccBody> coreRes = objectStorageService
-        .getObject("test2", "weed---5044-_0157d22e4151e06d");
+        .getObject("test", "weed---5044-_0157d22e4151e06d");
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
       System.out.println(coreRes.getBody());
     } else {
@@ -94,7 +145,7 @@ public class ObjectStorageTest {
   @Test
   public void delStorageObject() {
     CoreRes<SuccBody> coreRes = objectStorageService
-        .delObject("test2", "weed---5044-_0157d22e4151e06d");
+        .delObject("test", "weed---5044-_0157d22e4151e06d");
     if (coreRes.getStatus() == HttpStatus.SC_OK) {
       System.out.println(coreRes.getBody());
     } else {

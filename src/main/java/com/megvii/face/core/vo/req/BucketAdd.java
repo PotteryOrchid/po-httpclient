@@ -1,6 +1,7 @@
 package com.megvii.face.core.vo.req;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.megvii.face.core.constant.DefaultInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,6 @@ public class BucketAdd {
   public String name;
 
   @JSONField
-  public Integer replica = 1;
+  public Integer replica = DefaultInfo.BUCKET_REPLICA;
 
 }

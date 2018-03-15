@@ -14,12 +14,16 @@ import org.apache.http.util.EntityUtils;
  * Created by ZJ on 24/01/2018.
  */
 public class Demo2 {
+
   public static void main(String[] args) throws Exception {
     // Create an HttpClient with the ThreadSafeClientConnManager.
     // This connection manager must be used if more than one thread will
     // be using the HttpClient.
+
+    long time1 = System.currentTimeMillis();
+
     PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-    cm.setMaxTotal(100);
+    cm.setMaxTotal(50);
 
     CloseableHttpClient httpclient = HttpClients.custom()
         .setConnectionManager(cm)
@@ -27,9 +31,8 @@ public class Demo2 {
     try {
       // create an array of URIs to perform GETs on
       String[] urisToGet = {
-          "http://hc.apache.org/",
-          "http://hc.apache.org/httpcomponents-core-ga/",
-          "http://hc.apache.org/httpcomponents-client-ga/",
+          "http://10.201.102.122:8080/v4/photos/a9514-AAABYftI5D7OK37vAAAACA==/data",
+
       };
 
       // create a thread for each URI
@@ -51,6 +54,7 @@ public class Demo2 {
 
     } finally {
       httpclient.close();
+      System.out.println("============>>>>>>>:" + (System.currentTimeMillis() - time1));
     }
   }
 
@@ -86,6 +90,7 @@ public class Demo2 {
           if (entity != null) {
             byte[] bytes = EntityUtils.toByteArray(entity);
             System.out.println(id + " - " + bytes.length + " bytes read");
+
           }
         } finally {
           response.close();
