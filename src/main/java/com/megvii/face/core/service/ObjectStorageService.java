@@ -29,4 +29,6 @@ public interface ObjectStorageService {
 
   CoreRes<SuccBody> getObject(String bucketName, String objectName);
 
+  String getObjectUri(String bucketName, String objectName, String contentType);
+
 }

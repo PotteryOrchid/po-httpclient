@@ -14,6 +14,7 @@ import com.megvii.face.core.vo.resp.Bucket;
 import com.megvii.face.core.vo.resp.Buckets;
 import com.megvii.face.core.vo.resp.StorageObject;
 import java.io.File;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by ZJ on 29/01/2018.
@@ -120,5 +121,22 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
     HttpFileUtil httpFileUtil = new HttpFileUtil();
 
     return httpFileUtil.doGet(uri);
+  }
+
+  @Override
+  public String getObjectUri(String bucketName, String objectName, String contentType) {
+    // Request parameters.
+    UriParam uriBucketName = new UriParam(ObjectStorage.PARAM_BNAME, bucketName);
+    UriParam uriObjectName = new UriParam(ObjectStorage.PARAM_ONAME, objectName);
+    // Request uri path.
+    String uri = CoreUriUtil
+        .getCoreUri(ObjectStorage.GET_OBJECTSTORAGE_BNAME_ONAME, uriBucketName, uriObjectName);
+    if (StringUtils.isEmpty(contentType)) {
+      return uri;
+    } else {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append(uri).append("?content-type=").append(contentType);
+      return stringBuilder.toString();
+    }
   }
 }
