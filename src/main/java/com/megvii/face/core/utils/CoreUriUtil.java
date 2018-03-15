@@ -20,10 +20,10 @@ public class CoreUriUtil {
 
   /**
    * Get a real http or https core uri Str. Create a new http or https core uri Str according the
-   * original Str, and transfer the uri parameter value into it. Example
+   * original Str, and put the path parameter value into the uri Str.
    *
-   * @param uri String
-   * @param uriParams UriParam
+   * @param uri String. Prefix Str of original uri.
+   * @param uriParams UriParam. Path params include key and value.
    * @return String
    */
   public static String getCoreUri(String uri, UriParam... uriParams) {
@@ -45,9 +45,11 @@ public class CoreUriUtil {
   }
 
   /**
-   * @param uri String
-   * @param pageParam PageParam
-   * @param getParam GetParam
+   * @param uri String. Prefix Str of original uri.
+   * @param pageParam PageParam. Append page param to http uri Str. Please set the value to null if
+   * you do not need this param value.
+   * @param getParam GetParam. Append page param to http uri Str. Please set the value to null if
+   * you do not need this param value.
    * @return String
    */
   public static String appendPageAndGetParam(String uri, PageParam pageParam, GetParam getParam) {
