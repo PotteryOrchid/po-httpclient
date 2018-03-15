@@ -21,12 +21,18 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
+ * HTTP request methods for Object Storage interface.
  * Created by ZJ on 11/01/2018.
  */
 public class HttpFileUtil {
 
   Logger logger = LoggerFactory.getLogger(HttpFileUtil.class);
 
+  /**
+   * @param uri HTTP request uri.
+   * @return All of the return data will be packaged in Class CoreRes. And return file data with Str
+   * type in body.
+   */
   public CoreRes doGet(String uri) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
@@ -53,6 +59,12 @@ public class HttpFileUtil {
     }
   }
 
+  /**
+   * @param uri HTTP request uri.
+   * @param file The file object to be uploaded to Object Storage.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doPost(String uri, File file, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
@@ -81,12 +93,18 @@ public class HttpFileUtil {
     }
   }
 
-  public CoreRes doPost(String uri, String fileStr, Class clazz) {
+  /**
+   * @param uri HTTP request uri.
+   * @param str The Str data to be uploaded to Object Storage.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
+  public CoreRes doPost(String uri, String str, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {
       HttpPost httpPost = new HttpPost(uri);
       this.setHttpRequest(httpPost);
-      httpPost.setEntity(new StringEntity(fileStr));
+      httpPost.setEntity(new StringEntity(str));
 
       // Create a custom response handler
       ResponseHandler<CoreRes> responseHandler = new HttpResponseHandler()
@@ -109,6 +127,12 @@ public class HttpFileUtil {
     }
   }
 
+  /**
+   * @param uri HTTP request uri.
+   * @param bytes The byte data of file to be uploaded to Object Storage.
+   * @param clazz Class to define the return data type.
+   * @return All of the return data will be packaged in Class CoreRes.
+   */
   public CoreRes doPost(String uri, byte[] bytes, Class clazz) {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     try {

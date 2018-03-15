@@ -29,7 +29,6 @@ public class HttpUtil {
   Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
   /**
-   *
    * @param uri HTTP request uri.
    * @param clazz Class to define the return data type.
    * @return All of the return data will be packaged in Class CoreRes.
@@ -61,7 +60,6 @@ public class HttpUtil {
   }
 
   /**
-   *
    * @param uri HTTP request uri.
    * @param body HTTP request body.
    * @param clazz Class to define the return data type.
@@ -95,7 +93,6 @@ public class HttpUtil {
   }
 
   /**
-   *
    * @param uri HTTP request uri.
    * @param body HTTP request body.
    * @param clazz Class to define the return data type.
@@ -129,7 +126,6 @@ public class HttpUtil {
   }
 
   /**
-   *
    * @param uri HTTP request uri.
    * @return All of the return data will be packaged in Class CoreRes.
    */
