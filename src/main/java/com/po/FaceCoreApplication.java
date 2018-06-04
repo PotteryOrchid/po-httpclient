@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.megvii.face.core"})
+@ComponentScan(basePackages = {"com.po"})
 public class FaceCoreApplication implements Serializable {
 
   public static void main(String[] args) {

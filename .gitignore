@@ -26,6 +26,8 @@ atlassian-ide-plugin.xml
 
 
 # log files
+log
+logs
 *.log
 
 
