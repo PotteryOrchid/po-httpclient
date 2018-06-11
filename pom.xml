@@ -41,11 +41,6 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
 
@@ -111,5 +106,16 @@
       <version>${tika-core.version}</version>
     </dependency>
   </dependencies>
+
+  <distributionManagement>
+    <repository>
+      <id>Megvii_Central</id>
+      <url>http://10.199.1.20:8081/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>Megvii_Snapshots</id>
+      <url>http://10.199.1.20:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
